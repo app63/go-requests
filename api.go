@@ -2,12 +2,11 @@ package requests
 
 import (
 	"net/http"
-	"strings"
 )
 
-func request(method string, url string, data strings.NewReader) (*http.Response, error) {
+func request(method string, url string, data map[string]string) (*http.Response, error) {
 	client := &http.Client{}
-	req, _ := http.NewRequest(method, url, *data)
+	req, _ := http.NewRequest(method, url, data)
 
 	res, _ := client.Do(req)
 	defer req.Body.Close()
@@ -27,15 +26,15 @@ func Head(url string) (*http.Response, error) {
 	return request("HEAD", url, nil)
 }
 
-func Post(url string, data strings.NewReader) (*http.Response, error) {
+func Post(url string, data map[string]string) (*http.Response, error) {
 	return request("POST", url, data)
 }
 
-func Put(url string, data strings.NewReader) (*http.Response, error) {
+func Put(url string, data map[string]string) (*http.Response, error) {
 	return request("PUT", url, data)
 }
 
-func Patch(url string, data strings.NewReader) (*http.Response, error) {
+func Patch(url string, data map[string]string) (*http.Response, error) {
 	return request("PATCH", url, data)
 }
 
